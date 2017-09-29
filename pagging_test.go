@@ -45,6 +45,15 @@ func TestMyPagging(t *testing.T) {
 		So(pg.Offset, ShouldEqual, 20)
 	})
 
+	Convey("test page gen case 3", t, func() {
+		papping := Pagging{}
+		pg := papping.PageInfoGenerator(20)
+		So(pg.TotalRecord, ShouldEqual, 20)
+		So(pg.TotalPage, ShouldEqual, 2)
+		So(pg.Offset, ShouldEqual, 0)
+		So(pg.Limit, ShouldEqual, 10)
+	})
+
 	Convey("test page gen case all", t, func() {
 		papping := Pagging{
 			Page: -1,
