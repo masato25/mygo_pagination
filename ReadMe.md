@@ -14,7 +14,7 @@ func Query(c *gin.Context) {
   if err := c.Bing(); err != nil {
     c.JSON(400, err.Error())
   }
-  q := db.Where("id > 10")
+  q := db.Table("mytable").Where("id > 10")
   pg := inputs.Pagging(q)
   q.Offset(pg.Offset).Limit(pg.Limit)
 }
