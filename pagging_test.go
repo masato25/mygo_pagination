@@ -15,10 +15,10 @@ func TestMyPagging(t *testing.T) {
 			Page:  1,
 		}
 		pg := papping.PageInfoGenerator(200)
+		So(pg.Limit, ShouldEqual, 10)
 		So(pg.Page, ShouldEqual, 1)
 		So(pg.TotalRecord, ShouldEqual, 200)
 		So(pg.TotalPage, ShouldEqual, 20)
-		So(pg.Limit, ShouldEqual, 9)
 		So(pg.Offset, ShouldEqual, 0)
 	})
 
@@ -43,7 +43,17 @@ func TestMyPagging(t *testing.T) {
 		So(pg.TotalRecord, ShouldEqual, 207)
 		So(pg.TotalPage, ShouldEqual, 11)
 		So(pg.Offset, ShouldEqual, 20)
-		So(pg.Limit, ShouldEqual, 39)
+	})
+
+	Convey("test page gen case all", t, func() {
+		papping := Pagging{
+			Page: -1,
+		}
+		pg := papping.PageInfoGenerator(207)
+		log.Infof("%v", pg)
+		So(pg.TotalRecord, ShouldEqual, 207)
+		So(pg.TotalPage, ShouldEqual, 1)
+		So(pg.Offset, ShouldEqual, 0)
 	})
 
 }

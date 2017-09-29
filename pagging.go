@@ -16,8 +16,8 @@ type Pagging struct {
 type PaggingInfo struct {
 	TotalRecord int `json:"total_record"`
 	TotalPage   int `json:"total_page"`
-	Offset      int `json:"-"`
-	Limit       int `json:"-"`
+	Offset      int `json:"offset"`
+	Limit       int `json:"limit"`
 	Page        int `json:"page:"`
 }
 
@@ -47,6 +47,7 @@ func (inputs Pagging) PageInfoGenerator(total int) (pg PaggingInfo) {
 			TotalRecord: total,
 			TotalPage:   int(math.Ceil(float64(total) / float64(inputs.Limit))),
 		}
+		pg.Limit = inputs.Limit
 		if inputs.Page <= 0 {
 			inputs.Page = 1
 		}
@@ -56,8 +57,6 @@ func (inputs Pagging) PageInfoGenerator(total int) (pg PaggingInfo) {
 		} else {
 			pg.Offset = (inputs.Page - 1) * inputs.Limit
 		}
-		pg.Limit = (inputs.Page * inputs.Limit) - 1
-
 		if pg.Limit > total {
 			pg.Limit = total
 		}
