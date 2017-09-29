@@ -18,8 +18,8 @@ func TestMyPagging(t *testing.T) {
 		So(pg.Page, ShouldEqual, 1)
 		So(pg.TotalRecord, ShouldEqual, 200)
 		So(pg.TotalPage, ShouldEqual, 20)
-		So(pg.QLimit, ShouldEqual, 9)
-		So(pg.QOffset, ShouldEqual, 0)
+		So(pg.Limit, ShouldEqual, 9)
+		So(pg.Offset, ShouldEqual, 0)
 	})
 
 	Convey("test page gen case 2", t, func() {
@@ -42,8 +42,8 @@ func TestMyPagging(t *testing.T) {
 		log.Infof("%v", pg)
 		So(pg.TotalRecord, ShouldEqual, 207)
 		So(pg.TotalPage, ShouldEqual, 11)
-		So(pg.QOffset, ShouldEqual, 20)
-		So(pg.QLimit, ShouldEqual, 39)
+		So(pg.Offset, ShouldEqual, 20)
+		So(pg.Limit, ShouldEqual, 39)
 	})
 
 }
