@@ -33,6 +33,10 @@ func (inputs Pagging) GenOffset(query *gorm.DB) (pg PaggingInfo, err error) {
 }
 
 func (inputs Pagging) PageInfoGenerator(total int) (pg PaggingInfo) {
+	// set default limit of pagging
+	if inputs.Limit == 0 {
+		inputs.Limit = 10
+	}
 	// if page set -1, means get all
 	if inputs.Page == -1 {
 		pg = PaggingInfo{
